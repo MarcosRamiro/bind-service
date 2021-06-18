@@ -1,0 +1,8 @@
+eclipse.preferences.version=1
+encoding//src/main/java/com/ramiro/binder/ServiceBind.java=UTF-8
+encoding//src/main/java/com/ramiro/binder/ServiceBindException.java=UTF-8
+encoding//src/main/java/com/ramiro/binder/visitor/ComprovanteVisitor.java=UTF-8
+encoding//src/main/java/com/ramiro/binder/visitor/ComprovanteVisitorErrorListener.java=UTF-8
+encoding//src/main/java/com/ramiro/binder/visitor/model/Value.java=UTF-8
+encoding//src/test/java/com/ramiro/binder/visitor/ComprovanteVisitorTeste.java=UTF-8
+encoding/pom.xml=UTF-8
