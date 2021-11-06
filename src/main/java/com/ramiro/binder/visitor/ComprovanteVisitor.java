@@ -48,26 +48,27 @@ import br.com.caelum.stella.tinytype.CPF;
 
 public class ComprovanteVisitor extends ComprovBaseVisitor<Value> {
 
+	private final String MSG_ERRO_LINGUAGEM_E_PAIS_INCORRETO = "linguagem e pais deve ter o padrao \"pt-br\".";
 	private final String json;
+	
 
 	public ComprovanteVisitor(Object object) {
 
 		this.json = new GsonBuilder().create().toJson(object);
 	}
 
-	private Locale tratarLinguagemEPais(String linguagemEPais) {
+	private Locale obterLocale(String linguagemEPais) {
+		
+		int linguagem = 0;
+		int pais = 1;
 
-		String msgErro = "linguagem e pais deve ter o padrao \"pt-br\".";
-
-		if (!linguagemEPais.contains("-"))
-			throw new ParseCancellationException(msgErro);
+		if (!linguagemEPais.contains("-")) throw new ParseCancellationException(MSG_ERRO_LINGUAGEM_E_PAIS_INCORRETO);
 
 		String[] lang = linguagemEPais.split("-");
 
-		if (lang.length != 2)
-			throw new ParseCancellationException(msgErro);
+		if (lang.length != 2) throw new ParseCancellationException(MSG_ERRO_LINGUAGEM_E_PAIS_INCORRETO);
 
-		return new Locale(lang[0], lang[1]);
+		return new Locale(lang[linguagem], lang[pais]);
 
 	}
 
@@ -79,13 +80,15 @@ public class ComprovanteVisitor extends ComprovBaseVisitor<Value> {
 		try {
 
 			Object obj = JsonPath.read(this.json, padrao);
+			
+			if (obj == null) return "";
 
 			if (obj instanceof List<?>)
 				return ((List<?>) obj).stream().findFirst().isPresent()
 						? ((List<?>) obj).stream().findFirst().get().toString()
 						: "";
 
-			return obj == null ? "" : obj.toString();
+			return obj.toString();
 
 		} catch (Exception e) {
 			//e.printStackTrace();
@@ -254,7 +257,7 @@ public class ComprovanteVisitor extends ComprovBaseVisitor<Value> {
 		if (!value.isDecimal())
 			throw new ParseCancellationException("valor deve ser numero/decimal :: " + value.asString());
 
-		Locale locale = tratarLinguagemEPais(this.visit(ctx.lang_country).asString());
+		Locale locale = obterLocale(this.visit(ctx.lang_country).asString());
 
 		NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(locale);
 
@@ -295,7 +298,7 @@ public class ComprovanteVisitor extends ComprovBaseVisitor<Value> {
 
 		String masc_entrada = this.visit(ctx.masc_e).asString();
 		String masc_saida = this.visit(ctx.masc_s).asString();
-		Locale locale = tratarLinguagemEPais(this.visit(ctx.lang_country).asString());
+		Locale locale = obterLocale(this.visit(ctx.lang_country).asString());
 		SimpleDateFormat formatadorEntrada = new SimpleDateFormat(masc_entrada, locale);
 		SimpleDateFormat formatadorSaida = new SimpleDateFormat(masc_saida, locale);
 

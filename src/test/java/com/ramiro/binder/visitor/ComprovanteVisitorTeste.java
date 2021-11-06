@@ -440,18 +440,18 @@ public class ComprovanteVisitorTeste {
 	@Test
 	public void deveRetornarPrimeirasLetrasEmMaiuscula_Capitalize() {
 
-		String padrao = " capitalize ( \"MEU nome √© jo√£ozinho\" ) ";
+		String padrao = " capitalize ( \"MEU nome È jo„ozinho\" ) ";
 		Value value = chamarVisitor(padrao, new Object());
-		assertEquals("MEU Nome √â Jo√£ozinho", value.asString());
+		assertEquals("MEU Nome … Jo„ozinho", value.asString());
 
 	}
 	
 	@Test
 	public void deveRetornarPrimeirasLetrasEmMinuscula_Uncapitalize() {
 
-		String padrao = " uncapitalize ( \"MEU nOmE N√ÉO √â jOHnnY\" ) ";
+		String padrao = " uncapitalize ( \"MEU nOmE N√O … jOHnnY\" ) ";
 		Value value = chamarVisitor(padrao, new Object());
-		assertEquals("mEU nOmE n√ÉO √© jOHnnY", value.asString());
+		assertEquals("mEU nOmE n√O È jOHnnY", value.asString());
 
 	}
 
@@ -460,7 +460,7 @@ public class ComprovanteVisitorTeste {
 
 		String padrao = " capitalize ( \"MEU noMe √© jo√£ozinho\" ) + \"!!\" ";
 		Value value = chamarVisitor(padrao, new Object());
-		assertEquals("MEU NoMe √â Jo√£ozinho!!", value.asString());
+		assertEquals("MEU NoMe √© Jo√£ozinho!!", value.asString());
 
 	}
 	
@@ -523,27 +523,27 @@ public class ComprovanteVisitorTeste {
 	@Test
 	public void deveTratarStringsParaUpperCase_toUpperCase() {
 
-		String padrao = " touppercase  ( \"mEU NOmE N√ÉO √â jOHnnY\" ) ";
+		String padrao = " touppercase  ( \"mEU NOmE n„o È jOHnnY\" ) ";
 		Value value = chamarVisitor(padrao, getCliente());
-		assertEquals("MEU NOME N√ÉO √â JOHNNY", value.asString());
+		assertEquals("MEU NOME N√O … JOHNNY", value.asString());
 
 	}
 	
 	@Test
 	public void deveTratarStringsParaLowerCase_toLowerCase() {
 
-		String padrao = " tolowercase  ( \"mEU NOmE N√ÉO √â jOHnnY\" ) ";
+		String padrao = " tolowercase  ( \"mEU NOmE N√O … jOHnnY\" ) ";
 		Value value = chamarVisitor(padrao, getCliente());
-		assertEquals("meu nome n√£o √© johnny", value.asString());
+		assertEquals("meu nome n„o È johnny", value.asString());
 
 	}
 	
 	@Test
 	public void deveTratarStringsParaLowerCaseECapitalize() {
 
-		String padrao = " capitalize (  tolowercase  ( \"mEU NOmE N√ÉO √â jOHnnY\") ) ";
+		String padrao = " capitalize (  tolowercase  ( \"mEU NOmE N√O È jOHnnY\") ) ";
 		Value value = chamarVisitor(padrao, getCliente());
-		assertEquals("Meu Nome N√£o √â Johnny", value.asString());
+		assertEquals("Meu Nome N„o … Johnny", value.asString());
 
 	}
 	
@@ -670,7 +670,7 @@ public class ComprovanteVisitorTeste {
 	public void deveFormatarParaRealBrasileiro() {
 		String padrao = " formatcurrency ( 123.12 , \"pt-br\" ) ";
 		Value value = chamarVisitor(padrao, getCliente());
-		assertEquals( "R$¬†123,12", value.asString());
+		assertEquals( "R$ 123,12", value.asString());
 		
 	}
 	
