@@ -91,8 +91,7 @@ public class ComprovanteVisitor extends ComprovBaseVisitor<Value> {
 			return obj.toString();
 
 		} catch (Exception e) {
-			//e.printStackTrace();
-			throw new ParseCancellationException("Erro ao chamar JsonPath. Padrao recebido: " +  padrao + ".", e);
+			throw new ParseCancellationException(String.format("Erro ao chamar JsonPath. Padrao recebido: %s.",  padrao), e);
 		}
 	}
 
