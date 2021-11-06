@@ -270,12 +270,10 @@ public class ComprovanteVisitor extends ComprovBaseVisitor<Value> {
 
 		Value resultado = this.visit(ctx.teste);
 
-		if (!resultado.isBoolean())
-			throw new ParseCancellationException("expressao deve retornar um boolean :: " + resultado.asString());
+		if (!resultado.isBoolean()) throw new ParseCancellationException("expressao deve retornar um boolean :: " + resultado.asString());
 
-		if (resultado.asBoolean().booleanValue()) {
-			return this.visit(ctx.verdadeiro);
-		}
+		if (resultado.asBoolean().booleanValue()) return this.visit(ctx.verdadeiro);
+		
 		return this.visit(ctx.falso);
 	}
 
